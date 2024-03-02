@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+      
+
+
+<h1> Posts</h1>
+<br>
+
+<hr>
+
+
+<ul>
+
+    {% if user.is_authenticated %}
+
+     
+            {% for post in object_list   %}
+
+                <li> <a href = "{% url 'article-detail' post.pk %}" style="color:#000000"><h4>{{post.title}} </a>  &nbsp;&nbsp;  <a href = "#"  style="color:#0000cd">{{post.post_date}}</a> </h4>             
+                 <h6><a href = "{% url 'author' post.author %}" style="color:#FF0000"> {{post.author.first_name}}  {{post.author.last_name}} </a>    &nbsp;&nbsp; <a  href = "{% url 'category' post.category %}"   style="color:#FF0000"> {{post.category}} </h6></a>  
+                    
+                <br>
+                <br>
+                <li><a href = "#" style="color:#808080">{{post.body|slice:":200"|safe  }}</li><br><br></a>
+
+                {% if user.id == post.author.id %}
+
+                     <br><a href = "{% url 'update_post' post.pk %}"> Edit </a>  &nbsp; &nbsp; &nbsp; <a href = " {% url "delete_post" post.pk %}" > Delete </a><br><hr><br>
+                {% else %}
+
+                    <hr>
+
+                {% endif %}
+
+               
+            {% endfor %}
+        
+
+        
+
+    {% else %}
+
+        {% for post in object_list   %}
+
+            <li> <a href = "{% url 'article-detail' post.pk %}" style="color:#000000"><h4>{{post.title}} </a>  &nbsp;&nbsp;&nbsp; <a href = "#"  style="color:#0000cd">{{post.post_date}}</a> </h4>             
+            <h6><a href = "{% url 'author' post.author %}" style="color:#FF0000"> {{post.author.first_name}}  {{post.author.last_name}} </a>    &nbsp;&nbsp; <a  href = "{% url 'category' post.category|slugify %}"   style="color:#FF0000"> {{post.category}} </h6></a>  
+                
+            <br>
+            <br>
+            <li><a href = "#" style="color:#808080">{{post.body|slice:":200"|safe  }}</li><br><br><hr></a>
+
+        {% endfor %}
+
+
+    
+
+    {% endif %}
+
+
+
+
+</ul>
+
+
+{% endblock  %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+      
+
+<h1>User Profile ...</h1>
+<br>
+<br>
+
+<div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-2">
+        {% if page_user.image %}
+        <img src="{{page_user.image.url}}" width="250px", height="300px" class="img-fluid rounded-start" class="border border-4">
+        {% else %}
+        <img src="{% static 'theblog/images/default-profile-picture1.jpg' %}" width="250px", height="300px" class="img-fluid rounded-start" class="border border-4">
+
+        {% endif %}
+      </div>
+      <div class="col-md-10">
+        <div class="card-body">
+            {% if post.author.profile.id %}
+              <h5 class="card-title">{{page_user.user.first_name}}&nbsp;{{page_user.last_name}}</h5>
+            {% else %}
+            
+            <h5 class="card-title">{{page_user.user.first_name}}&nbsp;{{page_user.last_name}}</h5>
+
+          {% endif %}
+          
+          
+            <p class="card-text" class="text-muted"  class="col-lg-4 col-sm-12 footer-social">
+
+              {% if page_user.insta_url %}
+                  <a href="{{page_user.insta_url}}"><i class="fa fa-instagram"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              {% endif %}
+              {% if page_user.facebook_url %}
+                  <a href="{{page_user.facebook_url}}"><i class="fa fa-facebook"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              {% endif %}
+              {% if page_user.website_url %}
+                  <a href="{{page_user.website_url}}"><i class="fa fa-chrome"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              {% endif %}
+            </p>
+          
+
+
+            
+          </p>
+          {% if page_user.bio %}
+            <p class="card-text">{{page_user.bio}}</p>
+          {% else %}
+            <h6> I am {{page_user.user.first_name}} And Hope You Enjoy From My Text </h6>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock  %}
